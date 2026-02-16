@@ -1,0 +1,13 @@
+﻿
+> hostel-management@0.0.0 build
+> vite build
+
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32mΓ£ô[39m 1734 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                 [39m[1m[2m  0.46 kB[22m[1m[22m[2m Γöé gzip:  0.30 kB[22m
+[2mdist/[22m[35massets/index-CNQLQ2l1.css  [39m[1m[2m  4.84 kB[22m[1m[22m[2m Γöé gzip:  1.36 kB[22m
+[2mdist/[22m[36massets/index-CCn9InMI.js   [39m[1m[2m257.65 kB[22m[1m[22m[2m Γöé gzip: 80.06 kB[22m
+[32mΓ£ô built in 2.12s[39m
