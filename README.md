@@ -6,6 +6,7 @@
   
   <h1>🏨 Hostel & PG Management System</h1>
   <p>A comprehensive, full-stack web application designed for seamlessly managing Hostels, Paying Guest (PG) accommodations, and Rentals.</p>
+  <p>🚀 <strong>Live Deployment:</strong> <a href="https://client-flame-zeta-29.vercel.app">https://client-flame-zeta-29.vercel.app</a></p>
 </div>
 
 <br />
