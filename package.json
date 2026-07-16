@@ -1,0 +1,20 @@
+{
+    "name": "hostel-management-system",
+    "version": "1.0.0",
+    "description": "Root package to manage server and client",
+    "scripts": {
+        "install-all": "npm install && cd server && npm install && cd ../client && npm install",
+        "start": "concurrently \"npm run server\" \"npm run client\"",
+        "dev": "npm start",
+        "server": "cd server && npm start",
+        "client": "cd client && npm run dev",
+        "prisma:generate": "cd server && npx prisma generate",
+        "seed": "cd server && node prisma/seed.js"
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    },
+    "dependencies": {
+        "@prisma/client": "^7.4.0"
+    }
+}

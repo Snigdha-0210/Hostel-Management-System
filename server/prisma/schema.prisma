@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   // ADMIN, OWNER, TENANT
+  phone     String?
+  address   String?
+  createdAt DateTime @default(now())
+  
+  // Relations
+  properties Property[]
+  bookings   Booking[]
+  complaints Complaint[]
+}
+
+model Property {
+  id        Int      @id @default(autoincrement())
+  name      String
+  address   String
+  city      String
+  type      String   // HOSTEL, PG, FLAT
+  rules     String?
+  hasMess   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  
+  // Foreign Key
+  ownerId   Int
+  owner     User     @relation(fields: [ownerId], references: [id])
+  
+  // Relations
+  rooms      Room[]
+  complaints Complaint[]
+}
+
+model Room {
+  id          Int      @id @default(autoincrement())
+  roomNumber  String
+  capacity    Int
+  price       Decimal
+  type        String   // AC, NON-AC
+  isAvailable Boolean  @default(true)
+  
+  // Foreign Key
+  propertyId  Int
+  property    Property @relation(fields: [propertyId], references: [id])
+  
+  // Relations
+  bookings    Booking[]
+}
+
+model Booking {
+  id         Int      @id @default(autoincrement())
+  startDate  DateTime
+  endDate    DateTime
+  status     String   // PENDING, CONFIRMED, REJECTED, CANCELLED
+  totalAmount Decimal
+  createdAt  DateTime @default(now())
+  
+  // Foreign Keys
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  roomId     Int
+  room       Room     @relation(fields: [roomId], references: [id])
+  
+  // Relations
+  payments   Payment[]
+}
+
+model Payment {
+  id            Int      @id @default(autoincrement())
+  amount        Decimal
+  date          DateTime @default(now())
+  status        String   // PAID, PENDING, FAILED
+  transactionId String?
+  
+  // Foreign Key
+  bookingId     Int
+  booking       Booking  @relation(fields: [bookingId], references: [id])
+}
+
+model Complaint {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  status      String   // OPEN, RESOLVED
+  createdAt   DateTime @default(now())
+  resolvedAt  DateTime?
+  
+  // Foreign Keys
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  propertyId  Int
+  property    Property @relation(fields: [propertyId], references: [id])
+}
