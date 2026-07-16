@@ -18,7 +18,8 @@ const ManageBookings = () => {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/bookings/owner');
+                const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+                const res = await axios.get(`${API_URL}/api/bookings/owner`);
                 setBookings(res.data);
             } catch (error) {
                 console.error("Failed to fetch bookings", error);
@@ -32,7 +33,8 @@ const ManageBookings = () => {
     const handleStatusUpdate = async (bookingId, status) => {
         setUpdating(bookingId + status);
         try {
-            await axios.put(`http://localhost:5000/api/bookings/${bookingId}/status`, { status });
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            await axios.put(`${API_URL}/api/bookings/${bookingId}/status`, { status });
             setBookings(bookings.map(b => b.id === bookingId ? { ...b, status } : b));
         } catch (error) {
             console.error("Failed to update status", error);
